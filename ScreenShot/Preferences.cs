@@ -8,6 +8,27 @@ namespace ScreenShot
     [Serializable]
     public class Preferences : INotifyPropertyChanged
     {
+        private bool _currentScreen = false;
+        public bool isCurrentScreen
+        {
+            get => _currentScreen;
+            set
+            {
+                _currentScreen = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool _upscale = false;
+        public bool Upscale
+        {
+            get => _upscale;
+            set
+            {
+                _upscale = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _DrawRayManWall = true;
         public bool DrawRayManWall
         {

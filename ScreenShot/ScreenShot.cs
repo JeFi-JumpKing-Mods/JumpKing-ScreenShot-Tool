@@ -89,10 +89,23 @@ namespace ScreenShot
         }
 
         [PauseMenuItemSetting]
+        public static ToggleCurrentScreen ToggleCurrentScreen(object factory, GuiFormat format)
+        {
+            return new ToggleCurrentScreen();
+        }
+
+        [PauseMenuItemSetting]
+        public static ToggleUpscale ToggleUpscale(object factory, GuiFormat format)
+        {
+            return new ToggleUpscale();
+        }
+
+        [PauseMenuItemSetting]
         public static ToggleSRayManWall ToggleSRayManWall(object factory, GuiFormat format)
         {
             return new ToggleSRayManWall();
         }
+
 
         [PauseMenuItemSetting]
         public static TextButton ButtonResetIndex(object factory, GuiFormat format)

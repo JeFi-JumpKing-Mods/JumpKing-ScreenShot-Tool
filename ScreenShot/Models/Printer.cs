@@ -11,6 +11,7 @@ using JumpKing.MiscSystems.Achievements;
 using EntityComponent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace ScreenShot.Models
 {
@@ -44,11 +45,17 @@ namespace ScreenShot.Models
             var _current_screen = Traverse.Create(typeof(Camera)).Field("_current_screen");
             int start = Math.Max(0, ScreenShot.Preferences.StartIndex);
             int end = Math.Min(ScreenShot.Preferences.EndIndex+1, LevelManager.TotalScreens);
-            for (int i=start; i<end; i++) {
-            // for (int i=0; i<10; i++) {
-                _current_screen.SetValue(i);
-                string filePath = GetFullPath(i, ticks);
+            if (ScreenShot.Preferences.isCurrentScreen) {
+                _current_screen.SetValue(origIndex);
+                string filePath = GetFullPath(origIndex, ticks);
                 SaveScreen(filePath);
+            }
+            else {
+                for (int i=start; i<end; i++) {
+                    _current_screen.SetValue(i);
+                    string filePath = GetFullPath(i, ticks);
+                    SaveScreen(filePath);
+                }
             }
 
             _current_screen.SetValue(origIndex);
@@ -80,25 +87,62 @@ namespace ScreenShot.Models
             Game1.instance.EndBatch();
 
             PrintingTarget.GetData<Color>(Data);
-            using (Drawing.Bitmap bitmap = new Drawing.Bitmap(WIDTH, HEIGHT))
-            {
-                for (int y = 0; y < HEIGHT; y++)
-                {
-                    for (int x = 0; x < WIDTH; x++)
-                    {
-                        Color color = Data[x + y * WIDTH];
-                        bitmap.SetPixel(x, y, Drawing.Color.FromArgb(color.A, color.R, color.G, color.B));
-                    }
-                }
 
-                bitmap.Save(filePath, Drawing.Imaging.ImageFormat.Png);
+            if (ScreenShot.Preferences.Upscale) {
+                Upscale1080(filePath);
             }
+            else {
+                using (Drawing.Bitmap bitmap = new Drawing.Bitmap(WIDTH, HEIGHT))
+                {
+                    for (int y = 0; y < HEIGHT; y++)
+                    {
+                        for (int x = 0; x < WIDTH; x++)
+                        {
+                            Color color = Data[x + y * WIDTH];
+                            bitmap.SetPixel(x, y, Drawing.Color.FromArgb(color.A, color.R, color.G, color.B));
+                        }
+                    }
+
+                    bitmap.Save(filePath, Drawing.Imaging.ImageFormat.Png);
+                }
+            }
+
             // Don't use SaveAsPng in monogame, it will drop the data sometimes.
             // using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: 1, useAsync: false))
             // {
             //     PrintingTarget.SaveAsPng(stream, WIDTH, HEIGHT);
             // }
         }
+
+        private static void Upscale1080(string filePath) {
+            int W = 1920;
+            int H = 1080;
+            int ratio = H/HEIGHT;
+            int left = (W-ratio*WIDTH)/2;
+            int top = 0;
+            using (Drawing.Bitmap bitmap = new Drawing.Bitmap(W, H))
+            {
+                using (Drawing.Graphics g = Drawing.Graphics.FromImage(bitmap))
+                {
+                    g.Clear(Drawing.Color.Black);
+                }
+                for (int y = 0; y < HEIGHT; y++)
+                {
+                    for (int x = 0; x < WIDTH; x++)
+                    {
+                        Color color = Data[x + y * WIDTH];
+                        for (int i=0; i<ratio; i++) {
+                            for (int j=0; j<ratio; j++) {
+                                bitmap.SetPixel(left+x*ratio+i, top+y*ratio+j, Drawing.Color.FromArgb(color.A, color.R, color.G, color.B));
+                            }
+                        }
+                    }
+                }
+
+                bitmap.Save(filePath, Drawing.Imaging.ImageFormat.Png);
+            }
+        }
+
         private static string GetFullPath(int index, int tick) {
             string fileName = string.Format("screen{0:D3}_tick{1:D8}{2}.png", index+1, tick, (ScreenShot.isDrawRayManWall) ? "" : "_nR");
             return Path.Combine(SaveDir, fileName);
