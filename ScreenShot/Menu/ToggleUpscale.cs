@@ -4,7 +4,7 @@ namespace ScreenShot.Menu
 {
     public class ToggleUpscale : ITextToggle
     {
-        public ToggleUpscale() : base(ScreenShot.Preferences.DrawRayManWall)
+        public ToggleUpscale() : base(ScreenShot.Preferences.Upscale)
         {
         }
 

@@ -4,7 +4,7 @@ namespace ScreenShot.Menu
 {
     public class ToggleCurrentScreen : ITextToggle
     {
-        public ToggleCurrentScreen() : base(ScreenShot.Preferences.DrawRayManWall)
+        public ToggleCurrentScreen() : base(ScreenShot.Preferences.isCurrentScreen)
         {
         }
 
