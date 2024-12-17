@@ -15,11 +15,10 @@ using ScreenShot.Menu;
 using JumpKing.PauseMenu;
 using JumpKing.PauseMenu.BT;
 
-namespace ScreenShot
-{
+namespace ScreenShot {
     [JumpKingMod(IDENTIFIER)]
     public static class ScreenShot
-	{
+    {
         const string IDENTIFIER = "JeFi.ScreenShot";
         const string HARMONY_IDENTIFIER = "JeFi.ScreenShot.Harmony";
         const string SETTINGS_FILE = "JeFi.ScreenShot.Preferences.xml";
@@ -36,11 +35,11 @@ namespace ScreenShot
         public static void BeforeLevelLoad()
         {
             AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-// #if DEBUG
-//             Debugger.Launch();
-//             Harmony.DEBUG = true;
-//             Environment.SetEnvironmentVariable("HARMONY_LOG_FILE", $@"{AssemblyPath}\harmony.log.txt");
-// #endif
+    // #if DEBUG
+    //             Debugger.Launch();
+    //             Harmony.DEBUG = true;
+    //             Environment.SetEnvironmentVariable("HARMONY_LOG_FILE", $@"{AssemblyPath}\harmony.log.txt");
+    // #endif
             try
             {
                 Preferences = XmlSerializerHelper.Deserialize<Preferences>($@"{AssemblyPath}\{SETTINGS_FILE}");
@@ -71,9 +70,9 @@ namespace ScreenShot
             OffsetX = Math.Max(start.X, end.X);
             OffsetY = start.Y;
 
-#if DEBUG
+    #if DEBUG
             Environment.SetEnvironmentVariable("HARMONY_LOG_FILE", null);
-#endif
+    #endif
         }
 
         [OnLevelStart]

@@ -1,11 +1,8 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace ScreenShot
 {
-    [Serializable]
     public class Preferences : INotifyPropertyChanged
     {
         private bool _currentScreen = false;
