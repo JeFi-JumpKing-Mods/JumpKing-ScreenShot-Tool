@@ -19,11 +19,8 @@ namespace ScreenShotTool.Patching
 
         private static void postDraw() {
             if (JumpKing.GameManager.GameLoop.instance.IsRunning() && KeyboardState.isPressed(Microsoft.Xna.Framework.Input.Keys.F12)) {
-                if (!ScreenShotTool.Preferences.DrawRayManWall) {
-                    ScreenShotTool.isDrawRayManWall = false;
-                }
-                Printer.SaveAllScreens();
-                ScreenShotTool.isDrawRayManWall = true;
+                Renderer.isDrawRayManWall = ScreenShotTool.Preferences.DrawRayManWall;
+                Renderer.RenderAllScreens();
             }
         }
     }

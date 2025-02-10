@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 
 namespace ScreenShotTool.Models;
-public static class Printer
+public static class Renderer
 {
     public const int WIDTH = Game1.WIDTH;
     public const int HEIGHT = Game1.HEIGHT;
@@ -23,9 +23,11 @@ public static class Printer
     public static string SaveDir {get; set;}
     private static MethodInfo GetCurrentStats;
     private static object AchievementManagerInstance;
+    public static bool isRendering = false;
+    public static bool isDrawRayManWall = true;
     private static Color[] Data = new Color[WIDTH*HEIGHT];
 
-    static Printer() {
+    static Renderer() {
         Type achievementManagerType = AccessTools.TypeByName("JumpKing.MiscSystems.Achievements.AchievementManager");
         AchievementManagerInstance = AccessTools.Field(achievementManagerType, "instance").GetValue(null);
         GetCurrentStats = AccessTools.Method(achievementManagerType, "GetCurrentStats");
@@ -34,10 +36,12 @@ public static class Printer
         PrintingTarget = new RenderTarget2D(Game1.instance.GraphicsDevice, WIDTH, HEIGHT);
     }
 
-    public static void SaveAllScreens() {
+    public static void RenderAllScreens() {
         if (!Directory.Exists(SaveDir)) {
             return;
         }
+        isRendering = true;
+
         int ticks = ((PlayerStats)GetCurrentStats.Invoke(AchievementManagerInstance, null))._ticks;
 
         int origIndex = Camera.CurrentScreen;
@@ -63,6 +67,8 @@ public static class Printer
         _current_screen.SetValue(origIndex);
         Game1.instance.StartBatch();
         Game1.instance.GraphicsDevice.SetRenderTarget(OriginalTarget);
+
+        isRendering = false;
     }
     private static void SaveScreen(string filePath) {
         // Debug.WriteLine(filePath);
@@ -149,7 +155,7 @@ public static class Printer
     }
 
     private static string GetFullPath(int index, int tick) {
-        string fileName = string.Format("screen{0:D3}_tick{1:D8}{2}.png", index+1, tick, (ScreenShotTool.isDrawRayManWall) ? "" : "_nR");
+        string fileName = string.Format("screen{0:D3}_tick{1:D8}{2}.png", index+1, tick, isDrawRayManWall ? "" : "_nR");
         return Path.Combine(SaveDir, fileName);
     }
 }

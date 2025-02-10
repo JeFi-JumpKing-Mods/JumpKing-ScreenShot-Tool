@@ -27,7 +27,6 @@ public static class ScreenShotTool
 
     public static string AssemblyPath { get; set; }
     public static Preferences Preferences { get; private set; }
-    public static bool isDrawRayManWall = true;
 
     public static int OffsetX {get; private set; }
     public static int OffsetY {get; private set; }
@@ -85,7 +84,7 @@ public static class ScreenShotTool
             Directory.CreateDirectory(dir);
         }
 
-        Printer.SaveDir = dir;
+        Renderer.SaveDir = dir;
     }
 
     [PauseMenuItemSetting]

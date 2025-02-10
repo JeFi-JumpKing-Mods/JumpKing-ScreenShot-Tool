@@ -1,4 +1,5 @@
 using HarmonyLib;
+using ScreenShotTool.Models;
 using System;
 using System.Reflection;
 
@@ -16,7 +17,7 @@ public class RaymanWallEntity
     }
 
     private static void preDraw(ref object __instance) {
-        if (!ScreenShotTool.isDrawRayManWall) {
+        if (Renderer.isRendering && !Renderer.isDrawRayManWall) {
             var m_fade = Traverse.Create(__instance).Field("m_fade");
             var m_alpha = Traverse.Create(m_fade.GetValue()).Field("m_alpha");
             m_alpha.SetValue(0f); 
