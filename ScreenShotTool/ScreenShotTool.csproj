@@ -61,6 +61,7 @@
     <Compile Include="Nodes\*.cs" />
     <Compile Include="Models\*.cs" />
     <Compile Include="Patching\*.cs" />
+    <Compile Include="Utils\*.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

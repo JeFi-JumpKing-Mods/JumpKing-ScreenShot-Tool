@@ -1,7 +1,9 @@
 using System.Reflection;
+using BehaviorTree;
 using ErikMaths;
 using HarmonyLib;
 using JumpKing;
+using JumpKing.Controller;
 using JumpKing.PauseMenu.BT.Actions;
 using Microsoft.Xna.Framework;
 
@@ -9,6 +11,9 @@ namespace ScreenShotTool.Menu;
 public class SliderStartIndex : ISlider
 {
     public readonly static SliderStartIndex Instance;
+    private Utils.Timer timer;
+    private const float RepeatThreshold = 0.5f;
+    private const float RepeatInterval = 0.05f;
     const int steps = 168;
     static SliderStartIndex() {
         Instance = new SliderStartIndex();
@@ -17,8 +22,38 @@ public class SliderStartIndex : ISlider
     {
         FieldInfo STEPS = AccessTools.Field(typeof(ISlider), "STEPS");
         STEPS.SetValue(this, steps/2);
+        timer = new Utils.Timer(RepeatThreshold, RepeatInterval);
+        timer.Reset();
     }
 
+    protected override BTresult MyRun(TickData p_data) {
+        BTresult result = base.MyRun(p_data);
+
+        PadState padState = ControllerManager.instance.GetPadState();
+        if (padState.left!=padState.right) {
+            if (timer.Update(p_data.delta_time)) {
+                float value = Traverse.Create(this).Field<float>("m_value").Value;
+                int STEPS = Traverse.Create(this).Field<int>("STEPS").Value;
+                if (padState.left) {
+                    value -= 1f / (float)STEPS;
+                }
+                else if (padState.right)
+                {
+                    value += 1f / (float)STEPS;
+                }
+
+                value = ErikMath.Clamp(value, 0f, 1f);
+                SetValue(value);
+                OnSliderChange(value);
+                result = BTresult.Success;
+            }
+        }
+        else {
+            timer.Reset();
+        }
+
+        return result;
+    }
     public static void SetIndex(int index) {
         float value =  ErikMath.Clamp(index/(float)steps, 0f, 1f);
         Instance.SetValue(value);
