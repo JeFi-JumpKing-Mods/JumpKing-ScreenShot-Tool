@@ -1,9 +1,9 @@
 ﻿using JumpKing.PauseMenu.BT.Actions;
 
-namespace ScreenShot.Menu;
+namespace ScreenShotTool.Menu;
 public class ToggleCurrentScreen : ITextToggle
 {
-    public ToggleCurrentScreen() : base(ScreenShot.Preferences.isCurrentScreen)
+    public ToggleCurrentScreen() : base(ScreenShotTool.Preferences.isCurrentScreen)
     {
     }
 
@@ -11,6 +11,6 @@ public class ToggleCurrentScreen : ITextToggle
 
     protected override void OnToggle()
     {
-        ScreenShot.Preferences.isCurrentScreen = toggle;
+        ScreenShotTool.Preferences.isCurrentScreen = toggle;
     }
 }

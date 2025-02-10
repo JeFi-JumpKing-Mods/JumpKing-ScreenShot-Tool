@@ -10,19 +10,19 @@ using JumpKing.Mods;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using ScreenShot.Models;
-using ScreenShot.Nodes;
-using ScreenShot.Menu;
+using ScreenShotTool.Models;
+using ScreenShotTool.Nodes;
+using ScreenShotTool.Menu;
 using JumpKing.PauseMenu;
 using JumpKing.PauseMenu.BT;
 
-namespace ScreenShot;
+namespace ScreenShotTool;
 [JumpKingMod(IDENTIFIER)]
-public static class ScreenShot
+public static class ScreenShotTool
 {
-    const string IDENTIFIER = "JeFi.ScreenShot";
-    const string HARMONY_IDENTIFIER = "JeFi.ScreenShot.Harmony";
-    const string SETTINGS_FILE = "JeFi.ScreenShot.Preferences.xml";
+    const string IDENTIFIER = "JeFi.ScreenShotTool";
+    const string HARMONY_IDENTIFIER = "JeFi.ScreenShotTool.Harmony";
+    const string SETTINGS_FILE = "JeFi.ScreenShotTool.Preferences.xml";
     private const string SCREENSHOT_DIR = "ScreenShot";
 
     public static string AssemblyPath { get; set; }
@@ -129,7 +129,7 @@ public static class ScreenShot
     [PauseMenuItemSetting]
     public static ExplorerTextButton OpenFolderExplorer(object factory, GuiFormat format)
     {
-        return new ExplorerTextButton("Open Input Files Folder", new NodeOpenFolderExplorer(AssemblyPath), Color.Lime);
+        return new ExplorerTextButton("Open Images Folder", new NodeOpenFolderExplorer(Path.Combine(AssemblyPath, SCREENSHOT_DIR)), Color.Lime);
     }
 
     private static string GetDirName() {

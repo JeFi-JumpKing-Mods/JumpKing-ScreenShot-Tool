@@ -1,9 +1,9 @@
 ﻿using JumpKing.PauseMenu.BT.Actions;
 
-namespace ScreenShot.Menu;
+namespace ScreenShotTool.Menu;
 public class ToggleUpscale : ITextToggle
 {
-    public ToggleUpscale() : base(ScreenShot.Preferences.Upscale)
+    public ToggleUpscale() : base(ScreenShotTool.Preferences.Upscale)
     {
     }
 
@@ -11,6 +11,6 @@ public class ToggleUpscale : ITextToggle
 
     protected override void OnToggle()
     {
-        ScreenShot.Preferences.Upscale = toggle;
+        ScreenShotTool.Preferences.Upscale = toggle;
     }
 }

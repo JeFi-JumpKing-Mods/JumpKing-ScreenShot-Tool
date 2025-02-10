@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
-namespace ScreenShot.Models;
+namespace ScreenShotTool.Models;
 public static class KeyboardState
 {
     private static List<Keys> LastState = new List<Keys>();

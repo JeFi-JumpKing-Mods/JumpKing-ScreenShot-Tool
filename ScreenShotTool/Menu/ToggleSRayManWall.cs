@@ -1,9 +1,9 @@
 ﻿using JumpKing.PauseMenu.BT.Actions;
 
-namespace ScreenShot.Menu;
+namespace ScreenShotTool.Menu;
 public class ToggleSRayManWall : ITextToggle
 {
-    public ToggleSRayManWall() : base(ScreenShot.Preferences.DrawRayManWall)
+    public ToggleSRayManWall() : base(ScreenShotTool.Preferences.DrawRayManWall)
     {
     }
 
@@ -11,6 +11,6 @@ public class ToggleSRayManWall : ITextToggle
 
     protected override void OnToggle()
     {
-        ScreenShot.Preferences.DrawRayManWall = toggle;
+        ScreenShotTool.Preferences.DrawRayManWall = toggle;
     }
 }

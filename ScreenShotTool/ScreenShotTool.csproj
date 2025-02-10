@@ -9,8 +9,8 @@
     <ProjectGuid>{E0FEF606-15FE-48EA-8B5F-F1DBC2E2F010}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ScreenShot</RootNamespace>
-    <AssemblyName>ScreenShot</AssemblyName>
+    <RootNamespace>ScreenShotTool</RootNamespace>
+    <AssemblyName>ScreenShotTool</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

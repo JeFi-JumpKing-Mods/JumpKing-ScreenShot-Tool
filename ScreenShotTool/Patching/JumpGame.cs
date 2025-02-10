@@ -2,9 +2,9 @@ using HarmonyLib;
 using System.Reflection;
 
 using JK = JumpKing;
-using ScreenShot.Models;
+using ScreenShotTool.Models;
 
-namespace ScreenShot.Patching
+namespace ScreenShotTool.Patching
 {
     public class JumpGame
     {
@@ -19,11 +19,11 @@ namespace ScreenShot.Patching
 
         private static void postDraw() {
             if (JumpKing.GameManager.GameLoop.instance.IsRunning() && KeyboardState.isPressed(Microsoft.Xna.Framework.Input.Keys.F12)) {
-                if (!ScreenShot.Preferences.DrawRayManWall) {
-                    ScreenShot.isDrawRayManWall = false;
+                if (!ScreenShotTool.Preferences.DrawRayManWall) {
+                    ScreenShotTool.isDrawRayManWall = false;
                 }
                 Printer.SaveAllScreens();
-                ScreenShot.isDrawRayManWall = true;
+                ScreenShotTool.isDrawRayManWall = true;
             }
         }
     }

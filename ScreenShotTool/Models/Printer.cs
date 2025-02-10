@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 
-namespace ScreenShot.Models;
+namespace ScreenShotTool.Models;
 public static class Printer
 {
     public const int WIDTH = Game1.WIDTH;
@@ -42,9 +42,9 @@ public static class Printer
         Game1.instance.GraphicsDevice.SetRenderTarget(PrintingTarget);
 
         var _current_screen = Traverse.Create(typeof(Camera)).Field("_current_screen");
-        int start = Math.Max(0, ScreenShot.Preferences.StartIndex);
-        int end = Math.Min(ScreenShot.Preferences.EndIndex+1, LevelManager.TotalScreens);
-        if (ScreenShot.Preferences.isCurrentScreen) {
+        int start = Math.Max(0, ScreenShotTool.Preferences.StartIndex);
+        int end = Math.Min(ScreenShotTool.Preferences.EndIndex+1, LevelManager.TotalScreens);
+        if (ScreenShotTool.Preferences.isCurrentScreen) {
             _current_screen.SetValue(origIndex);
             string filePath = GetFullPath(origIndex, ticks);
             SaveScreen(filePath);
@@ -87,7 +87,7 @@ public static class Printer
 
         PrintingTarget.GetData<Color>(Data);
 
-        if (ScreenShot.Preferences.Upscale) {
+        if (ScreenShotTool.Preferences.Upscale) {
             Upscale1080(filePath);
         }
         else {
@@ -143,7 +143,7 @@ public static class Printer
     }
 
     private static string GetFullPath(int index, int tick) {
-        string fileName = string.Format("screen{0:D3}_tick{1:D8}{2}.png", index+1, tick, (ScreenShot.isDrawRayManWall) ? "" : "_nR");
+        string fileName = string.Format("screen{0:D3}_tick{1:D8}{2}.png", index+1, tick, (ScreenShotTool.isDrawRayManWall) ? "" : "_nR");
         return Path.Combine(SaveDir, fileName);
     }
 }

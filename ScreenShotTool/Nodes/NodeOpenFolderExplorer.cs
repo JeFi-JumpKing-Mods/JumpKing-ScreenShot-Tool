@@ -3,7 +3,7 @@ using JumpKing;
 using System.Diagnostics;
 using System.IO;
 
-namespace ScreenShot.Nodes;
+namespace ScreenShotTool.Nodes;
 public class NodeOpenFolderExplorer : IBTnode
 {
     private string folderPath = "";

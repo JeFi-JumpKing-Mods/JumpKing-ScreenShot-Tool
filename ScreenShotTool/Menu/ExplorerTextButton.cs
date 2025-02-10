@@ -4,7 +4,7 @@ using JumpKing.PauseMenu.BT;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ScreenShot.Menu;
+namespace ScreenShotTool.Menu;
 public class ExplorerTextButton : TextButton
 {
     private SpriteFont font;

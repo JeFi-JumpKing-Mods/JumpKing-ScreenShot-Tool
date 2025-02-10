@@ -1,10 +1,10 @@
 using HarmonyLib;
 using JK = JumpKing.Controller;
 using System.Reflection;
-using ScreenShot.Models;
+using ScreenShotTool.Models;
 using System;
 
-namespace ScreenShot.Patching;
+namespace ScreenShotTool.Patching;
 public class ControllerManager
 {
     // private static JK.IPad KeyboardPad;

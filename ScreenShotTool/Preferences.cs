@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ScreenShot;
+namespace ScreenShotTool;
 public class Preferences : INotifyPropertyChanged
 {
     private bool _currentScreen = false;
