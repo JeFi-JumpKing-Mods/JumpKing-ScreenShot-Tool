@@ -35,6 +35,9 @@ public static class Printer
     }
 
     public static void SaveAllScreens() {
+        if (!Directory.Exists(SaveDir)) {
+            return;
+        }
         int ticks = ((PlayerStats)GetCurrentStats.Invoke(AchievementManagerInstance, null))._ticks;
 
         int origIndex = Camera.CurrentScreen;
