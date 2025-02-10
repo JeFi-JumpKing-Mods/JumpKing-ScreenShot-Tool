@@ -1,5 +1,6 @@
 using System.Reflection;
 using ErikMaths;
+using HarmonyLib;
 using JumpKing;
 using JumpKing.PauseMenu.BT.Actions;
 using Microsoft.Xna.Framework;
@@ -14,7 +15,7 @@ public class SliderStartIndex : ISlider
     }
     public SliderStartIndex() : base(ScreenShotTool.Preferences.StartIndex / (float)steps)
     {
-        FieldInfo STEPS = typeof(ISlider).GetField("STEPS", BindingFlags.NonPublic | BindingFlags.Instance);
+        FieldInfo STEPS = AccessTools.Field(typeof(ISlider), "STEPS");
         STEPS.SetValue(this, steps/2);
     }
 
