@@ -108,21 +108,21 @@ public static class ScreenShotTool
 
 
     [PauseMenuItemSetting]
-    public static TextButton ButtonResetIndex(object factory, GuiFormat format)
+    public static TextButton ButtonResetRange(object factory, GuiFormat format)
     {
-        return new TextButton("Reset Index", new ResetIndexNode());
+        return new TextButton("Reset Range", new ResetRangeNode());
     }
 
     [PauseMenuItemSetting]
-    public static SliderStartIndex SliderStartIndex(object factory, GuiFormat format)
+    public static SliderStartIndex GetSliderStartIndex(object factory, GuiFormat format)
     {
-        return new SliderStartIndex();
+        return SliderStartIndex.Instance;
     }
 
     [PauseMenuItemSetting]
-    public static SliderEndIndex SliderEndIndex(object factory, GuiFormat format)
+    public static SliderEndIndex GetSliderEndIndex(object factory, GuiFormat format)
     {
-        return new SliderEndIndex();
+        return SliderEndIndex.Instance;
     }
 
     [MainMenuItemSetting]

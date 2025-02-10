@@ -1,5 +1,5 @@
 using System.Reflection;
-
+using ErikMaths;
 using JumpKing;
 using JumpKing.PauseMenu.BT.Actions;
 using Microsoft.Xna.Framework;
@@ -7,11 +7,21 @@ using Microsoft.Xna.Framework;
 namespace ScreenShotTool.Menu;
 public class SliderStartIndex : ISlider
 {
+    public readonly static SliderStartIndex Instance;
     const int steps = 168;
+    static SliderStartIndex() {
+        Instance = new SliderStartIndex();
+    }
     public SliderStartIndex() : base(ScreenShotTool.Preferences.StartIndex / (float)steps)
     {
         FieldInfo STEPS = typeof(ISlider).GetField("STEPS", BindingFlags.NonPublic | BindingFlags.Instance);
         STEPS.SetValue(this, steps/2);
+    }
+
+    public static void SetIndex(int index) {
+        float value =  ErikMath.Clamp(index/(float)steps, 0f, 1f);
+        Instance.SetValue(value);
+        Instance.OnSliderChange(value);
     }
 
     protected override void IconDraw(float p_value, int x, int y, out int new_x)

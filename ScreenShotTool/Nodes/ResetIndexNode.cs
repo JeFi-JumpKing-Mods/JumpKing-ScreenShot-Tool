@@ -1,11 +1,12 @@
 using BehaviorTree;
+using ScreenShotTool.Menu;
 
 namespace ScreenShotTool.Nodes;
-public class ResetIndexNode : IBTnode
+public class ResetRangeNode : IBTnode
 {
     protected override BTresult MyRun(TickData p_data) {
-        ScreenShotTool.Preferences.StartIndex = 0;
-        ScreenShotTool.Preferences.EndIndex = 168;
+        SliderStartIndex.SetIndex(0);
+        SliderEndIndex.SetIndex(168);
         return BTresult.Success;
     }
 }
