@@ -91,19 +91,7 @@ public static class Printer
             Upscale1080(filePath);
         }
         else {
-            using (Drawing.Bitmap bitmap = new Drawing.Bitmap(WIDTH, HEIGHT))
-            {
-                for (int y = 0; y < HEIGHT; y++)
-                {
-                    for (int x = 0; x < WIDTH; x++)
-                    {
-                        Color color = Data[x + y * WIDTH];
-                        bitmap.SetPixel(x, y, Drawing.Color.FromArgb(color.A, color.R, color.G, color.B));
-                    }
-                }
-
-                bitmap.Save(filePath, Drawing.Imaging.ImageFormat.Png);
-            }
+            OriginRender(filePath);
         }
 
         // Don't use SaveAsPng in monogame, it will drop the data sometimes.
@@ -135,6 +123,21 @@ public static class Printer
                             bitmap.SetPixel(left+x*ratio+i, top+y*ratio+j, Drawing.Color.FromArgb(color.A, color.R, color.G, color.B));
                         }
                     }
+                }
+            }
+
+            bitmap.Save(filePath, Drawing.Imaging.ImageFormat.Png);
+        }
+    }
+    private static void OriginRender(string filePath) {
+        using (Drawing.Bitmap bitmap = new Drawing.Bitmap(WIDTH, HEIGHT))
+        {
+            for (int y = 0; y < HEIGHT; y++)
+            {
+                for (int x = 0; x < WIDTH; x++)
+                {
+                    Color color = Data[x + y * WIDTH];
+                    bitmap.SetPixel(x, y, Drawing.Color.FromArgb(color.A, color.R, color.G, color.B));
                 }
             }
 
