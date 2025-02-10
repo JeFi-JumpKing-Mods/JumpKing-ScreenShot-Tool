@@ -13,7 +13,7 @@ public class SliderEndIndex : ISlider
     public readonly static SliderEndIndex Instance;
     private Utils.Timer timer;
     private const float RepeatThreshold = 0.5f;
-    private const float RepeatInterval = 0.05f;
+    private const float RepeatInterval = 1/50f;
 
     const int steps = 168;
     static SliderEndIndex() {

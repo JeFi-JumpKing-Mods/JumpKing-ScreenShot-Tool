@@ -36,11 +36,11 @@ public static class ScreenShotTool
     public static void BeforeLevelLoad()
     {
         AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-// #if DEBUG
-//             Debugger.Launch();
-//             Harmony.DEBUG = true;
-//             Environment.SetEnvironmentVariable("HARMONY_LOG_FILE", $@"{AssemblyPath}\harmony.log.txt");
-// #endif
+#if DEBUG
+            Debugger.Launch();
+            Harmony.DEBUG = true;
+            Environment.SetEnvironmentVariable("HARMONY_LOG_FILE", $@"{AssemblyPath}\harmony.log.txt");
+#endif
         try
         {
             Preferences = XmlSerializerHelper.Deserialize<Preferences>($@"{AssemblyPath}\{SETTINGS_FILE}");
