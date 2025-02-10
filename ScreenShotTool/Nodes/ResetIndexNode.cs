@@ -1,6 +1,6 @@
 using BehaviorTree;
 
-namespace ScreenShot.Menu;
+namespace ScreenShot.Nodes;
 public class ResetIndexNode : IBTnode
 {
     protected override BTresult MyRun(TickData p_data) {

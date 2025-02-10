@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using ScreenShot.Models;
+using ScreenShot.Nodes;
 using ScreenShot.Menu;
 using JumpKing.PauseMenu;
 using JumpKing.PauseMenu.BT;
@@ -122,6 +123,13 @@ public static class ScreenShot
     public static SliderEndIndex SliderEndIndex(object factory, GuiFormat format)
     {
         return new SliderEndIndex();
+    }
+
+    [MainMenuItemSetting]
+    [PauseMenuItemSetting]
+    public static ExplorerTextButton OpenFolderExplorer(object factory, GuiFormat format)
+    {
+        return new ExplorerTextButton("Open Input Files Folder", new NodeOpenFolderExplorer(AssemblyPath), Color.Lime);
     }
 
     private static string GetDirName() {
